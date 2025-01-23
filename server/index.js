@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-const Room = require('./models/Room'); // Room modelini ekleyelim
+const Room = require('./models/Room');
 
 const app = express();
 const server = http.createServer(app);
@@ -19,25 +19,21 @@ const io = socketIo(server, {
 app.use(cors());
 app.use(express.json());
 
-// MongoDB bağlantısı
 mongoose.connect('mongodb+srv://hasanngurhann01:TpTILZRNHPEH9UEd@scrum-poker.v2hcw.mongodb.net/?retryWrites=true&w=majority&appName=scrum-poker')
   .then(() => console.log('MongoDB connection successful'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Odalar ve kullanıcıları tutacak obje
 const rooms = {};
 
-// API endpoint'leri
 app.get('/api/history', async (req, res) => {
   try {
     const rooms = await Room.find({});
     res.json(rooms);
   } catch (error) {
-    res.status(500).json({ error: 'Geçmiş verileri alınamadı' });
+    res.status(500).json({ error: 'Failed to retrieve history data' });
   }
 });
 
-// Socket.io olayları
 io.on('connection', (socket) => {
   console.log('New user connected');
 
@@ -243,5 +239,5 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`Server ${PORT} portunda çalışıyor`);
+  console.log(`Server running on port ${PORT}`);
 }); 

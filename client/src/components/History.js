@@ -4,7 +4,7 @@ function History() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    // Geçmiş verilerini sunucudan al
+    // Get history data from server
     fetch('http://localhost:5000/api/history')
       .then(response => response.json())
       .then(data => setHistory(data))
@@ -14,7 +14,7 @@ function History() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6">Oylama Geçmişi</h2>
+        <h2 className="text-2xl font-bold mb-6">Voting History</h2>
 
         <div className="space-y-4">
           {history.map((record, index) => (
@@ -28,7 +28,7 @@ function History() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-medium mb-2">Oylar:</h4>
+                  <h4 className="font-medium mb-2">Votes:</h4>
                   <ul className="space-y-1">
                     {record.votes.map((vote, vIndex) => (
                       <li key={vIndex} className="flex justify-between">
@@ -40,7 +40,7 @@ function History() {
                 </div>
                 
                 <div>
-                  <h4 className="font-medium mb-2">Final Puan:</h4>
+                  <h4 className="font-medium mb-2">Final Score:</h4>
                   <span className="text-xl font-bold">{record.finalScore}</span>
                 </div>
               </div>

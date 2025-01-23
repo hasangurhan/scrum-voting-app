@@ -7,7 +7,7 @@ function Home() {
   const [isCreating, setIsCreating] = useState(true);
   const navigate = useNavigate();
 
-  // Component mount olduğunda ve isCreating değiştiğinde random ID oluştur
+  // Generate random ID when component mounts and when isCreating changes
   useEffect(() => {
     if (isCreating) {
       const randomId = Math.floor(100000 + Math.random() * 900000).toString();
